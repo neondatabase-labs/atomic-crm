@@ -24,7 +24,11 @@ import { SignupPage } from '../login/SignupPage';
 import {
     authProvider as defaultAuthProvider,
     dataProvider as defaultDataProvider,
-} from '../providers/supabase';
+}
+// for production, use neon
+from '../providers/neon';
+// for local development, use supabase
+// from '../providers/supabase';
 import sales from '../sales';
 import { SettingsPage } from '../settings/SettingsPage';
 import {

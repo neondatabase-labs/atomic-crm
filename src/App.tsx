@@ -25,6 +25,6 @@ import { CRM } from './root/CRM';
  *    />
  * );
  */
-const App = () => <CRM />;
+const App = () => <CRM disableTelemetry />;
 
 export default App;

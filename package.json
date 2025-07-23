@@ -16,6 +16,7 @@
         "@mui/material": "^5.17.1",
         "@nivo/bar": "^0.88.0",
         "@nivo/core": "^0.88.0",
+        "@stackframe/js": "^2.8.22",
         "@supabase/supabase-js": "^2.49.1",
         "@types/jsonexport": "^3.0.5",
         "clsx": "^2.1.0",
