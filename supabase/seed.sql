@@ -45,6 +45,16 @@ INSERT INTO "public"."sales" (
 (5, '6ba7b812-9dad-11d1-80b4-00c04fd430c8', 'Johnathon', 'Osinski', 'Johnathon16@gmail.com', FALSE),
 (6, '6ba7b813-9dad-11d1-80b4-00c04fd430c8', 'Wyman', 'OHara', 'Wyman_OHara78@gmail.com', FALSE);
 
+-- INSERT INTO "public"."sales" (
+--     "id", "user_id", "first_name", "last_name", "email", "administrator"
+-- ) VALUES
+-- (1, 'c98eeb57-130c-4db2-bc42-1fe759086af3', 'John', 'Smith', 'admin@email.com', true),
+-- (2, '68d6210e-254a-43ed-8446-af1329e459d1', 'Amparo', 'Denesik', 'Amparo25@yahoo.com', FALSE),
+-- (3, '7bc2f72a-2040-4755-a8d1-7a5cfa05f127', 'Gerard', 'Towne', 'Gerard_Towne58@yahoo.com', FALSE),
+-- (4, '6c539e21-cd0f-42c9-b7b9-d359313b0dce', 'Jane', 'Doe', 'janedoe@atomic.dev', TRUE),
+-- (5, 'c1aadc78-a0b9-48bd-98e8-9f6441d2ac4d', 'Johnathon', 'Osinski', 'Johnathon16@gmail.com', FALSE),
+-- (6, '55dcd5c0-49d4-4e59-8ae6-67139de5eadc', 'Wyman', 'OHara', 'Wyman_OHara78@gmail.com', FALSE);
+
 -- Seed data for companies table
 INSERT INTO "public"."companies" (
     "id", "created_at", "name", "sector", "size", "linkedin_url", "website", 
