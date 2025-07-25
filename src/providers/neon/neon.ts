@@ -1,6 +1,6 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { PostgrestClient } from '@supabase/postgrest-js';
-import { StackClientApp } from "@stackframe/js";
+import { StackClientApp, Session } from "@stackframe/js";
 import { fetchUtils } from 'ra-core';
 
 export const stackClientApp = new StackClientApp({
@@ -9,25 +9,25 @@ export const stackClientApp = new StackClientApp({
   publishableClientKey: import.meta.env.VITE_STACK_PUBLISHABLE_CLIENT_KEY,
   tokenStore: "cookie",
 });
-
+let currentSession: Session | null = null;
 async function accessToken() {
+    if (currentSession) {
+        const tokens = await currentSession?.getTokens();
+        let accessToken = tokens?.accessToken;
+        if (accessToken) {
+            return accessToken;
+        }
+    }
     const user = await stackClientApp.getUser();
     if (!user) {
         return null;
     }
-    const tokens = await user.currentSession?.getTokens();
+    currentSession = user.currentSession;
+    const tokens = await currentSession?.getTokens();
     return tokens?.accessToken;
 }
 
-export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY,
-    {
-        accessToken: accessToken
-    }
-);
+
 
 export const supabaseHttpClient =
     ({
@@ -60,6 +60,16 @@ export const supabaseHttpClient =
         return fetchUtils.fetchJson(url, options);
     };
 
+
+export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+    {
+        accessToken: accessToken
+    }
+);
 // hack to override the hardcoded /rest/v1 prefix in the supabase client
 // @ts-ignore
 supabase.rest = new PostgrestClient(SUPABASE_URL, {
@@ -68,6 +78,9 @@ supabase.rest = new PostgrestClient(SUPABASE_URL, {
     //schema: settings.db.schema,
     // @ts-ignore
     fetch: supabase.fetch,
-})
+});
+
+// hehe :)
+(window as any).neon = supabase;
 
 export { supabase };
